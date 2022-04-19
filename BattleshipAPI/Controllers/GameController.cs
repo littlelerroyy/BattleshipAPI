@@ -34,5 +34,21 @@ namespace BattleshipAPI.Controllers
 
             return Ok();
         }
+
+        [Route("/[controller]/[action]")]
+        [HttpGet]
+        public IActionResult AddSmallShip([FromServices]GameSession GameSession, uint PosX, uint PosY)
+        {
+            var Player = GameSession.Player1;
+
+            //If Overlapping Return Error
+            if (!Player.LocationisFree(PosX, PosY)) {
+                return BadRequest(new { Error = "Position Overlapping Another Ship" });
+            }
+
+            Player.Ships.Add(new SmallShip(PosX, PosY));
+
+            return Ok();
+        }
     }
 }
