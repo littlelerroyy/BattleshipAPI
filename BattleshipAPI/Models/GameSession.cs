@@ -2,7 +2,7 @@
 {
     public class GameSession
     {
-        public int GridSizeX { get; set; }
-        public int GridSizeY { get; set; }
+        public uint GridSizeX { get; set; }
+        public uint GridSizeY { get; set; }
     }
 }
