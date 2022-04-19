@@ -18,6 +18,8 @@ namespace BattleshipAPI.Controllers
             UnitTest.UnSuccessFullShipStrike();
             UnitTest.CoordinatesAreInBounds();
             UnitTest.CoordinatesAreOutBounds();
+            UnitTest.GridSizeIsTooSmall();
+            UnitTest.GridSizeIsCorrect();
 
             return Ok();
         }

@@ -65,6 +65,20 @@ namespace BattleshipAPI.Unit_Test
             Assert.AreEqual(GameSession.CheckCoordinatesAreInBounds(7, 7), false);
         }
 
+        [Test]
+        public static void GridSizeIsTooSmall()
+        {
+            var GameSession = new GameSession();
+            Assert.AreEqual(GameSession.ValidateAndApplyGridSize(2, 2), false);
+        }
+
+        [Test]
+        public static void GridSizeIsCorrect()
+        {
+            var GameSession = new GameSession();
+            Assert.AreEqual(GameSession.ValidateAndApplyGridSize(4, 4), true);
+        }
+
         private static GameSession GameSessionMock1()
         {
             var GameSession = new GameSession()
