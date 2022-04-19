@@ -6,6 +6,6 @@
 
         public uint yAxis { get; set; }
 
-        public bool TargetDestroyed { get; set; }
+        public bool BeenHit { get; set; }
     }
 }
