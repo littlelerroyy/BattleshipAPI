@@ -22,9 +22,8 @@ namespace BattleshipAPI.Controllers
             {
                 Name = "CPU",
                 Ships = new List<Ship>(),
-                LocationsStriked = new List<Location>(),
+                LocationsStriked = new List<Location>()
             };
-            GameSession.Player1.Ships = new List<Ship>();
 
             return Ok();
         }
