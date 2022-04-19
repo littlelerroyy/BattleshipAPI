@@ -2,6 +2,6 @@
 {
     public abstract class Ship
     {
-    public Location[] Locations { get; set; }
+    public List<Location> Locations { get; set; }
     }
 }
