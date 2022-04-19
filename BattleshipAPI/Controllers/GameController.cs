@@ -63,12 +63,16 @@ namespace BattleshipAPI.Controllers
 
             var Player = GameSession.Player1;
 
-            var ShipThatGotStriken = Player.StrikePlayer(PosX,PosY);
-            if (ShipThatGotStriken != null)
+            var ShipThatGotStricken = Player.StrikePlayer(PosX,PosY);
+
+            if (ShipThatGotStricken == null)
             {
-                return Ok(new { Result = "HIT" });
+                return Ok(new { Result = "Missed" });
             }
-            return Ok(new { Result = "Missed" });
+
+            ShipThatGotStricken.AddHitMarkerToShipLocation(PosX, PosY);
+
+            return Ok(new { Result = ShipThatGotStricken.AnnounceHit() }); ;
 
         }
     }
