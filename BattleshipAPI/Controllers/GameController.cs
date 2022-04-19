@@ -9,22 +9,12 @@ namespace BattleshipAPI.Controllers
     {
         [Route("/[controller]/[action]")]
         [HttpGet]
-        public IActionResult SetupGame([FromServices] GameSession GameSession, string SizeX, string SizeY)
+        public IActionResult SetupGame([FromServices] GameSession GameSession, uint SizeX, uint SizeY)
         {
-            //Make sure the sizing that comes back is a positive number
-            //Make Sure the sizing is greater than 3
-            try
+
+            if (!GameSession.ValidateAndApplyGridSize(SizeX, SizeY))
             {
-                GameSession.GridSizeX = uint.Parse(SizeX);
-                GameSession.GridSizeY = uint.Parse(SizeY);
-                if (GameSession.GridSizeX < 3 || GameSession.GridSizeY < 3)
-                {
-                    throw new Exception();
-                }
-            }
-            catch
-            {
-                return BadRequest(new { Error = "Please Enter Positive Numbers Only that are 3 or greater." });
+                return BadRequest(new { Error = "Please enter positive numbers only that are 3 or greater." });
             }
 
             //Create new Player and Ships

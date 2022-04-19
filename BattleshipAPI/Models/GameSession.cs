@@ -9,5 +9,15 @@
 
         public Player Player2 { get; set; }
 
+        public bool ValidateAndApplyGridSize(uint PosX, uint PosY) 
+        {
+            if (PosX < 3 || PosY < 3) 
+            { 
+            return false;
+            }
+            this.GridSizeX = PosX;
+            this.GridSizeY = PosY;
+            return true;
+        }
     }
 }
