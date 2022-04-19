@@ -50,7 +50,7 @@ namespace BattleshipAPI.Controllers
         public IActionResult StrikePosition([FromServices] GameSession GameSession, uint PosX, uint PosY)
         {
             // Strike Out of Bounds? Return Error
-            if (PosX > GameSession.GridSizeX || PosY > GameSession.GridSizeY)
+            if (!GameSession.CheckCoordinatesAreInBounds(PosX,PosY))
             {
                 return BadRequest(new { Error = "Position Out Of Bounds" });
             }

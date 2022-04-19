@@ -21,5 +21,14 @@
             this.GridSizeY = _GridSizeY;
             return true;
         }
+
+        public bool CheckCoordinatesAreInBounds(uint PosX, uint PosY)
+        {
+            if (GridSizeX > 3 || GridSizeY > 3)
+            { 
+                return false;            
+            }
+            return true;
+        }
     }
 }
