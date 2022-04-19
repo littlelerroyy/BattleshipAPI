@@ -35,9 +35,9 @@ namespace BattleshipAPI.Controllers
             var Player = GameSession.Player1;
 
             //If Overlapping Return Error
-            if (!Player.LocationisFree(PosX, PosY))
+            if (!Player.LocationisFree(PosX, PosY) || !GameSession.CheckCoordinatesAreInBounds(PosX,PosY))
             {
-                return BadRequest(new { Error = "Position Overlapping Another Ship" });
+                return BadRequest(new { Error = "Position Overlapping Another Ship or you are trying to spawn them out of the grid" });
             }
 
             Player.Ships.Add(new SmallShip(PosX, PosY));
@@ -66,7 +66,7 @@ namespace BattleshipAPI.Controllers
 
             ShipThatGotStricken.AddHitMarkerToShipLocation(PosX, PosY);
 
-            return Ok(new { Result = ShipThatGotStricken.AnnounceHit() }); ;
+            return Ok(new { Result = ShipThatGotStricken.AnnounceHit() });
 
         }
     }
