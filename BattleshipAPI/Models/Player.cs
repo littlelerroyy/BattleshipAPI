@@ -9,5 +9,11 @@
         {
             return !Ships.Any(Ship => Ship.Locations.Any(Location => Location.xAxis == PosX && Location.yAxis == PosY));
         }
+
+        public Ship? StrikePlayer(uint PosX, uint PosY)
+        {
+            var Ship = this.Ships.Where(Ship => Ship.Locations.Any(Location => Location.xAxis == PosX && Location.yAxis == PosY)).FirstOrDefault();
+            return Ship;
+        }
     }
 }

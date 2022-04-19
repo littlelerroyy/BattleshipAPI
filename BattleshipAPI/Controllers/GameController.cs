@@ -50,5 +50,26 @@ namespace BattleshipAPI.Controllers
 
             return Ok();
         }
+
+        [Route("/[controller]/[action]")]
+        [HttpGet]
+        public IActionResult StrikePosition([FromServices] GameSession GameSession, uint PosX, uint PosY) 
+        {
+            // Strike Out of Bounds? Return Error
+            if (PosX > GameSession.GridSizeX || PosY > GameSession.GridSizeY)
+            {
+                return BadRequest(new { Error = "Position Out Of Bounds" });
+            }
+
+            var Player = GameSession.Player1;
+
+            var ShipThatGotStriken = Player.StrikePlayer(PosX,PosY);
+            if (ShipThatGotStriken != null)
+            {
+                return Ok(new { Result = "HIT" });
+            }
+            return Ok(new { Result = "Missed" });
+
+        }
     }
 }
