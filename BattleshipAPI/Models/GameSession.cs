@@ -24,9 +24,9 @@
 
         public bool CheckCoordinatesAreInBounds(uint PosX, uint PosY)
         {
-            if (GridSizeX > 3 || GridSizeY > 3)
+            if (PosX > GridSizeX || PosY > GridSizeY)
             { 
-                return false;            
+                return false;
             }
             return true;
         }
