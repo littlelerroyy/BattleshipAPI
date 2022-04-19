@@ -51,6 +51,20 @@ namespace BattleshipAPI.Unit_Test
 
         }
 
+        [Test]
+        public static void CoordinatesAreInBounds() 
+        {
+            var GameSession = GameSessionMock1();
+            Assert.AreEqual(GameSession.CheckCoordinatesAreInBounds(2, 3), true);
+        }
+
+        [Test]
+        public static void CoordinatesAreOutBounds()
+        {
+            var GameSession = GameSessionMock1();
+            Assert.AreEqual(GameSession.CheckCoordinatesAreInBounds(7, 7), false);
+        }
+
         private static GameSession GameSessionMock1()
         {
             var GameSession = new GameSession()

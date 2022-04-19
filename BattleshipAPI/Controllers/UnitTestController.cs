@@ -16,6 +16,8 @@ namespace BattleshipAPI.Controllers
             UnitTest.VerifyLocationIsNotFree();
             UnitTest.SuccessFullShipStrike();
             UnitTest.UnSuccessFullShipStrike();
+            UnitTest.CoordinatesAreInBounds();
+            UnitTest.CoordinatesAreOutBounds();
 
             return Ok();
         }
