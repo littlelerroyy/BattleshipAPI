@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using BattleshipAPI.Models;
 
 namespace BattleshipAPI.Controllers
 {
@@ -8,8 +9,10 @@ namespace BattleshipAPI.Controllers
     {
         [Route("/[controller]/[action]")]
         [HttpGet]
-        public IActionResult TestAction() 
+        public IActionResult TestAction([FromServices] GameSession GameSession)
         {
+            GameSession.GridSizeX = 2;
+            GameSession.GridSizeY = 2;
             return null;
         }
     }
