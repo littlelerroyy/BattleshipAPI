@@ -12,11 +12,10 @@
             {
                 return "You Hit and Destroyed A " + this.GetType().Name;
             }            
-
             return "You Hit A " + this.GetType().Name;
         }
 
-        public bool AddHitMarkerToShipLocation(uint PosX, uint PosY)
+        public void AddHitMarkerToShipLocation(uint PosX, uint PosY)
         {
             var Location = this.Locations.Where(Location => Location.xAxis == PosX && Location.xAxis == PosY).First();
             Location.BeenHit = true;
@@ -26,8 +25,7 @@
             { 
             this.Destroyed = true;
             }
-
-            return true;
+            
         }
 
         private bool IsShipDestroyed()
