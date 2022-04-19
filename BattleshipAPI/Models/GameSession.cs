@@ -12,7 +12,7 @@
         public bool ValidateAndApplyGridSize(uint _GridSizeX, uint _GridSizeY)
         {
 
-            if (GridSizeX < 3 || GridSizeY < 3)
+            if (_GridSizeX < 3 || _GridSizeY < 3)
             {
                 return false;
             }
