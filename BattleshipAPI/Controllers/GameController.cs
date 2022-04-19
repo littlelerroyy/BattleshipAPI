@@ -18,21 +18,26 @@ namespace BattleshipAPI.Controllers
             }
 
             //Create new Player and Ships
-            GameSession.Player1 = new Player();
+            GameSession.Player1 = new Player()
+            {
+                Name = "CPU",
+                Ships = new List<Ship>(),
+                LocationsStriked = new List<Location>(),
+            };
             GameSession.Player1.Ships = new List<Ship>();
-            GameSession.Player1.LocationsStriked = new List<Location>();
 
             return Ok();
         }
 
         [Route("/[controller]/[action]")]
         [HttpGet]
-        public IActionResult AddSmallShip([FromServices]GameSession GameSession, uint PosX, uint PosY)
+        public IActionResult AddSmallShip([FromServices] GameSession GameSession, uint PosX, uint PosY)
         {
             var Player = GameSession.Player1;
 
             //If Overlapping Return Error
-            if (!Player.LocationisFree(PosX, PosY)) {
+            if (!Player.LocationisFree(PosX, PosY))
+            {
                 return BadRequest(new { Error = "Position Overlapping Another Ship" });
             }
 
@@ -43,7 +48,7 @@ namespace BattleshipAPI.Controllers
 
         [Route("/[controller]/[action]")]
         [HttpGet]
-        public IActionResult StrikePosition([FromServices] GameSession GameSession, uint PosX, uint PosY) 
+        public IActionResult StrikePosition([FromServices] GameSession GameSession, uint PosX, uint PosY)
         {
             // Strike Out of Bounds? Return Error
             if (PosX > GameSession.GridSizeX || PosY > GameSession.GridSizeY)
@@ -53,7 +58,7 @@ namespace BattleshipAPI.Controllers
 
             var Player = GameSession.Player1;
 
-            var ShipThatGotStricken = Player.StrikePlayer(PosX,PosY);
+            var ShipThatGotStricken = Player.StrikePlayer(PosX, PosY);
 
             if (ShipThatGotStricken == null)
             {
