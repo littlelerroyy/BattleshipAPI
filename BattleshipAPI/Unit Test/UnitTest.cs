@@ -55,6 +55,19 @@ namespace BattleshipAPI.Unit_Test
         }
 
         [Test]
+        public static void SmallShipHasNotBeenDestroyed()
+        {
+            var GameSession = GameSessionMock1();
+
+            //Strike next to a ship
+            Assert.AreEqual(GameSession.Player1.StrikePlayer(1, 2), null);
+
+            //Ship should not be destroyed
+            Assert.AreEqual(GameSession.Player1.Ships[0].Destroyed, false);
+
+        }
+
+        [Test]
         public static void CoordinatesAreInBounds() 
         {
             var GameSession = GameSessionMock1();
