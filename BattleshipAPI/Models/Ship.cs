@@ -17,7 +17,7 @@
 
         public void AddHitMarkerToShipLocation(uint PosX, uint PosY)
         {
-            var Location = this.Locations.Where(Location => Location.xAxis == PosX && Location.xAxis == PosY).First();
+            var Location = this.Locations.Where(Location => Location.xAxis == PosX && Location.yAxis == PosY).First();
             Location.BeenHit = true;
 
             //Calculate if the ship has all of its locations hit
