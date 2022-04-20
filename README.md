@@ -18,7 +18,7 @@ You will need copy the Linux x64 binary to a folder with appropriate permissions
 Create a new service file in /etc/systemd/system/BattleAPI.service
 
 Example
-/////
+---------------
 [Unit]
 
 Description=BattleAPI
@@ -28,11 +28,13 @@ Description=BattleAPI
 WorkingDirectory=/path/to/extracted/folder
 
 ExecStart=/path/to/dotnet/folder /path/to/extracted/folder/Battleship.API.dll
+
 Restart=always
 RestartSec=10
-/////
 
-and run the service.
+-------
+
+Run the service and will be available on port 5000
 
 
 # Viewing Swagger
