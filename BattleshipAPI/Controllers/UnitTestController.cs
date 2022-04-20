@@ -20,6 +20,7 @@ namespace BattleshipAPI.Controllers
             UnitTest.CoordinatesAreOutBounds();
             UnitTest.GridSizeIsTooSmall();
             UnitTest.GridSizeIsCorrect();
+            UnitTest.SmallShipHasBeenDestroyed();
 
             return Ok();
         }

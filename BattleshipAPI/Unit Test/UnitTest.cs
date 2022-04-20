@@ -42,12 +42,15 @@ namespace BattleshipAPI.Unit_Test
         }
 
         [Test]
-        public static void ShipHasBeenDestroyed()
+        public static void SmallShipHasBeenDestroyed()
         {
             var GameSession = GameSessionMock1();
-
-            Assert.AreEqual(GameSession.Player1.Ships[0], null);
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(2, 5), null);
+            
+            //Strike the ship first
+            Assert.AreEqual(GameSession.Player1.StrikePlayer(2, 3), GameSession.Player1.Ships[1]);
+            
+            //Ship should be destroyed
+            Assert.AreEqual(GameSession.Player1.Ships[1].Destroyed,true);
 
         }
 
