@@ -64,8 +64,6 @@ namespace BattleshipAPI.Controllers
                 return Ok(new { Result = "Missed" });
             }
 
-            ShipThatGotStricken.AddHitMarkerToShipLocation(PosX, PosY);
-
             return Ok(new { Result = ShipThatGotStricken.AnnounceHit() });
 
         }
