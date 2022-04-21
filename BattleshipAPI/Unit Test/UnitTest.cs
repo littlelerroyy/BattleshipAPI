@@ -68,6 +68,33 @@ namespace BattleshipAPI.Unit_Test
         }
 
         [Test]
+        public static void MediumShipHasBeenDestroyed()
+        {
+            var GameSession = GameSessionMock1();
+
+            //Strike the ship until its destroyed
+            Assert.AreEqual(GameSession.Player1.StrikePlayer(5, 5), GameSession.Player1.Ships[2]);
+            Assert.AreEqual(GameSession.Player1.StrikePlayer(5, 4), GameSession.Player1.Ships[2]);
+
+            //Ship should be destroyed
+            Assert.AreEqual(GameSession.Player1.Ships[2].Destroyed, true);
+
+        }
+
+        [Test]
+        public static void MediumShipHasNotBeenDestroyed()
+        {
+            var GameSession = GameSessionMock1();
+
+            //Only strike the ship once
+            Assert.AreEqual(GameSession.Player1.StrikePlayer(5, 5), GameSession.Player1.Ships[2]);
+
+            //Ship should not be destroyed
+            Assert.AreEqual(GameSession.Player1.Ships[2].Destroyed, false);
+
+        }
+
+        [Test]
         public static void CoordinatesAreInBounds() 
         {
             var GameSession = GameSessionMock1();
@@ -108,6 +135,8 @@ namespace BattleshipAPI.Unit_Test
 
                         new SmallShip (1,1),
                         new SmallShip (2,3),
+                        new MediumShip (5,5,5,4),
+                        new LargeShip (3,1,3,2,3,3)
                     }
                 }
             };

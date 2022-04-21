@@ -22,6 +22,8 @@ namespace BattleshipAPI.Controllers
             UnitTest.GridSizeIsCorrect();
             UnitTest.SmallShipHasBeenDestroyed();
             UnitTest.SmallShipHasNotBeenDestroyed();
+            UnitTest.MediumShipHasBeenDestroyed();
+            UnitTest.MediumShipHasNotBeenDestroyed();
 
             return Ok();
         }
