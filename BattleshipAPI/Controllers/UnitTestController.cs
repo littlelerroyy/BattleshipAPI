@@ -24,6 +24,8 @@ namespace BattleshipAPI.Controllers
             UnitTest.SmallShipHasNotBeenDestroyed();
             UnitTest.MediumShipHasBeenDestroyed();
             UnitTest.MediumShipHasNotBeenDestroyed();
+            UnitTest.LargeShipHasBeenDestroyed();
+            UnitTest.LargeShipHasNotBeenDestroyed();
 
             return Ok();
         }
