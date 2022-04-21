@@ -49,6 +49,44 @@ namespace BattleshipAPI.Controllers
 
         [Route("/[controller]/[action]")]
         [HttpGet]
+        public IActionResult AddMediumShip([FromServices] GameSession GameSession, uint PosX1, uint PosY1, uint PosX2, uint PosY2) 
+        {
+            //Applying to Player 1 "CPU" only for this task
+            var Player = GameSession.Player1;
+
+            //If Overlapping Return Error
+            if (!Player.LocationisFree(PosX1, PosY1) || !GameSession.CheckCoordinatesAreInBounds(PosX1, PosY1) || !Player.LocationisFree(PosX2, PosY2) || !GameSession.CheckCoordinatesAreInBounds(PosX2, PosY2))
+            {
+                return BadRequest(new { Error = "Position Overlapping Another Ship or you are trying to spawn them out of the grid" });
+            }
+
+            //Add new ship
+            Player.Ships.Add(new MediumShip(PosX1, PosY1, PosX2, PosY2));
+
+            return Ok();
+        }
+
+        [Route("/[controller]/[action]")]
+        [HttpGet]
+        public IActionResult AddLargeShip([FromServices] GameSession GameSession, uint PosX1, uint PosY1, uint PosX2, uint PosY2, uint PosX3, uint PosY3)
+        {
+            //Applying to Player 1 "CPU" only for this task
+            var Player = GameSession.Player1;
+
+            //If Overlapping Return Error
+            if (!Player.LocationisFree(PosX1, PosY1) || !GameSession.CheckCoordinatesAreInBounds(PosX1, PosY1) || !Player.LocationisFree(PosX2, PosY2) || !GameSession.CheckCoordinatesAreInBounds(PosX2, PosY2) || !Player.LocationisFree(PosX2, PosY2) || !GameSession.CheckCoordinatesAreInBounds(PosX2, PosY2))
+            {
+                return BadRequest(new { Error = "Position Overlapping Another Ship or you are trying to spawn them out of the grid" });
+            }
+
+            //Add new ship
+            Player.Ships.Add(new LargeShip(PosX1, PosY1, PosX2, PosY2, PosX3, PosY3));
+
+            return Ok();
+        }
+
+        [Route("/[controller]/[action]")]
+        [HttpGet]
         public IActionResult StrikePosition([FromServices] GameSession GameSession, uint PosX, uint PosY)
         {
             // Strike Out of Bounds? Return Error
