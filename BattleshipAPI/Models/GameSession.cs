@@ -6,10 +6,12 @@
         public uint GridSizeY { get; set; }
         public Player Player1 { get; set; }
         public Player Player2 { get; set; }
+        private const int GridMinX = 3;
+        private const int GridMinY = 3;
 
         public bool ValidateAndApplyGridSize(uint _GridSizeX, uint _GridSizeY)
         {
-            if (_GridSizeX < 3 || _GridSizeY < 3)
+            if (_GridSizeX < GridMinX || _GridSizeY < GridMinY)
             {
                 return false;
             }
