@@ -25,9 +25,22 @@
         public bool CheckCoordinatesAreInBounds(uint PosX, uint PosY)
         {
             if (PosX > GridSizeX || PosY > GridSizeY)
-            { 
+            {
                 return false;
             }
+            return true;
+        }
+
+        public bool CheckCoordinateListAreInBounds(List<Location> LocationList)
+        {
+            foreach (var Location in LocationList)
+            {
+                if (!CheckCoordinatesAreInBounds(Location.xAxis, Location.yAxis))
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
     }
