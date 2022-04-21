@@ -32,6 +32,7 @@ namespace BattleshipAPI.Controllers
         [HttpGet]
         public IActionResult AddSmallShip([FromServices] GameSession GameSession, uint PosX, uint PosY)
         {
+            //Applying to Player 1 "CPU" only for this task
             var Player = GameSession.Player1;
 
             //If Overlapping Return Error
@@ -40,6 +41,7 @@ namespace BattleshipAPI.Controllers
                 return BadRequest(new { Error = "Position Overlapping Another Ship or you are trying to spawn them out of the grid" });
             }
 
+            //Add new ship
             Player.Ships.Add(new SmallShip(PosX, PosY));
 
             return Ok();
@@ -55,8 +57,8 @@ namespace BattleshipAPI.Controllers
                 return BadRequest(new { Error = "Position Out Of Bounds" });
             }
 
+            //Applying to Player 1 "CPU" only for this task
             var Player = GameSession.Player1;
-
             var ShipThatGotStricken = Player.StrikePlayer(PosX, PosY);
 
             if (ShipThatGotStricken == null)
@@ -65,7 +67,6 @@ namespace BattleshipAPI.Controllers
             }
 
             return Ok(new { Result = ShipThatGotStricken.AnnounceHit() });
-
         }
     }
 }
