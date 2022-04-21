@@ -2,7 +2,6 @@
 {
     public abstract class Ship
     {
-
         public List<Location> Locations { get; set; }
         public bool Destroyed = false;
 
@@ -21,11 +20,10 @@
             Location.BeenHit = true;
 
             //Calculate if the ship has all of its locations hit
-            if (this.IsShipDestroyed()) 
+            if (this.IsShipDestroyed())
             { 
-            this.Destroyed = true;
+                this.Destroyed = true;
             }
-            
         }
 
         private bool IsShipDestroyed()
