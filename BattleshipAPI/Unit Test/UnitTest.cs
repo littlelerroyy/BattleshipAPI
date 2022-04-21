@@ -10,7 +10,7 @@ namespace BattleshipAPI.Unit_Test
         {
             var GameSession = GameSessionMock1();
 
-            Assert.AreEqual(GameSession.Player1.LocationisFree(1, 3), true);
+            Assert.AreEqual(true, GameSession.Player1.LocationisFree(1, 3));
         }
 
         [Test]
@@ -18,7 +18,7 @@ namespace BattleshipAPI.Unit_Test
         {
             var GameSession = GameSessionMock1();
 
-            Assert.AreEqual(GameSession.Player1.LocationisFree(1, 1), false);
+            Assert.AreEqual(false, GameSession.Player1.LocationisFree(1, 1));
         }
 
         [Test]
@@ -26,8 +26,8 @@ namespace BattleshipAPI.Unit_Test
         {
             var GameSession = GameSessionMock1();
 
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(1, 1), GameSession.Player1.Ships[0]);
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(2, 3), GameSession.Player1.Ships[1]);
+            Assert.AreEqual(GameSession.Player1.Ships[0], GameSession.Player1.StrikePlayer(1, 1));
+            Assert.AreEqual(GameSession.Player1.Ships[1], GameSession.Player1.StrikePlayer(2, 3));
 
         }
 
@@ -36,8 +36,8 @@ namespace BattleshipAPI.Unit_Test
         {
             var GameSession = GameSessionMock1();
 
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(0, 1), null);
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(2, 5), null);
+            Assert.AreEqual(null, GameSession.Player1.StrikePlayer(0, 1));
+            Assert.AreEqual(null, GameSession.Player1.StrikePlayer(2, 5));
 
         }
 
@@ -47,10 +47,10 @@ namespace BattleshipAPI.Unit_Test
             var GameSession = GameSessionMock1();
             
             //Strike the ship first
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(2, 3), GameSession.Player1.Ships[1]);
+            Assert.AreEqual(GameSession.Player1.Ships[1], GameSession.Player1.StrikePlayer(2, 3));
             
             //Ship should be destroyed
-            Assert.AreEqual(GameSession.Player1.Ships[1].Destroyed,true);
+            Assert.AreEqual(true, GameSession.Player1.Ships[1].Destroyed);
 
         }
 
@@ -60,10 +60,10 @@ namespace BattleshipAPI.Unit_Test
             var GameSession = GameSessionMock1();
 
             //Strike next to a ship
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(1, 2), null);
+            Assert.AreEqual(null, GameSession.Player1.StrikePlayer(1, 2));
 
             //Ship should not be destroyed
-            Assert.AreEqual(GameSession.Player1.Ships[0].Destroyed, false);
+            Assert.AreEqual(false, GameSession.Player1.Ships[0].Destroyed);
 
         }
 
@@ -73,11 +73,11 @@ namespace BattleshipAPI.Unit_Test
             var GameSession = GameSessionMock1();
 
             //Strike the ship until its destroyed
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(5, 5), GameSession.Player1.Ships[2]);
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(5, 4), GameSession.Player1.Ships[2]);
+            Assert.AreEqual(GameSession.Player1.Ships[2], GameSession.Player1.StrikePlayer(5, 5));
+            Assert.AreEqual(GameSession.Player1.Ships[2], GameSession.Player1.StrikePlayer(5, 4));
 
             //Ship should be destroyed
-            Assert.AreEqual(GameSession.Player1.Ships[2].Destroyed, true);
+            Assert.AreEqual(true, GameSession.Player1.Ships[2].Destroyed);
 
         }
 
@@ -87,10 +87,10 @@ namespace BattleshipAPI.Unit_Test
             var GameSession = GameSessionMock1();
 
             //Only strike the ship once
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(5, 5), GameSession.Player1.Ships[2]);
+            Assert.AreEqual(GameSession.Player1.Ships[2], GameSession.Player1.StrikePlayer(5, 5));
 
             //Ship should not be destroyed
-            Assert.AreEqual(GameSession.Player1.Ships[2].Destroyed, false);
+            Assert.AreEqual(false, GameSession.Player1.Ships[2].Destroyed);
 
         }
 
@@ -100,12 +100,12 @@ namespace BattleshipAPI.Unit_Test
             var GameSession = GameSessionMock1();
 
             //Strike the ship until its destroyed
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(3, 1), GameSession.Player1.Ships[3]);
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(3, 2), GameSession.Player1.Ships[3]);
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(3, 3), GameSession.Player1.Ships[3]);
+            Assert.AreEqual(GameSession.Player1.Ships[3], GameSession.Player1.StrikePlayer(3, 1));
+            Assert.AreEqual(GameSession.Player1.Ships[3], GameSession.Player1.StrikePlayer(3, 2));
+            Assert.AreEqual(GameSession.Player1.Ships[3], GameSession.Player1.StrikePlayer(3, 3));
 
             //Ship should be destroyed
-            Assert.AreEqual(GameSession.Player1.Ships[3].Destroyed, true);
+            Assert.AreEqual(true, GameSession.Player1.Ships[3].Destroyed);
 
         }
 
@@ -115,11 +115,11 @@ namespace BattleshipAPI.Unit_Test
             var GameSession = GameSessionMock1();
 
             //Strike the ship only twice
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(3, 1), GameSession.Player1.Ships[3]);
-            Assert.AreEqual(GameSession.Player1.StrikePlayer(3, 3), GameSession.Player1.Ships[3]);
+            Assert.AreEqual(GameSession.Player1.Ships[3], GameSession.Player1.StrikePlayer(3, 1));
+            Assert.AreEqual(GameSession.Player1.Ships[3], GameSession.Player1.StrikePlayer(3, 3));
 
             //Ship should not be destroyed
-            Assert.AreEqual(GameSession.Player1.Ships[3].Destroyed, false);
+            Assert.AreEqual(false, GameSession.Player1.Ships[3].Destroyed);
 
         }
 
@@ -127,28 +127,28 @@ namespace BattleshipAPI.Unit_Test
         public static void CoordinatesAreInBounds() 
         {
             var GameSession = GameSessionMock1();
-            Assert.AreEqual(GameSession.CheckCoordinatesAreInBounds(2, 3), true);
+            Assert.AreEqual(true, GameSession.CheckCoordinatesAreInBounds(2, 3));
         }
 
         [Test]
         public static void CoordinatesAreOutBounds()
         {
             var GameSession = GameSessionMock1();
-            Assert.AreEqual(GameSession.CheckCoordinatesAreInBounds(7, 7), false);
+            Assert.AreEqual(false, GameSession.CheckCoordinatesAreInBounds(7, 7));
         }
 
         [Test]
         public static void GridSizeIsTooSmall()
         {
             var GameSession = new GameSession();
-            Assert.AreEqual(GameSession.ValidateAndApplyGridSize(2, 2), false);
+            Assert.AreEqual(false,GameSession.ValidateAndApplyGridSize(2, 2));
         }
 
         [Test]
         public static void GridSizeIsCorrect()
         {
             var GameSession = new GameSession();
-            Assert.AreEqual(GameSession.ValidateAndApplyGridSize(4, 4), true);
+            Assert.AreEqual(true, GameSession.ValidateAndApplyGridSize(4, 4));
         }
 
         private static GameSession GameSessionMock1()
