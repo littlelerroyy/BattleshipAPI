@@ -65,6 +65,36 @@ If you get a status 400 if you place the ship outside of bounds or if you place 
 
 Status code of 200 if all good!
 
+# Add a Medium Ship to the board
+
+Can be access via /Game/AddMediumShip.
+Medium ships take TWO units on the board/grid.
+
+It takes 4 GET variables PosX1, PosY1, PosX2, PosY2. All Integers. Make sure the values you supply are consolidated, they are the same on ONE of the axis and on the other axis are directly positioned next to eachother.
+eg. 1,1 | 1,2
+
+You'll get a status 400 if:
+Postions are not consolidated.
+You place the ship outside of bounds or if you place the ship on top of another ship.
+Look for the 'error' key in the body return for the error message.
+
+Status code of 200 if all good!
+
+# Add a Large Ship to the board
+
+Can be access via /Game/AddLargeShip.
+Large ships take THREE units on the board/grid.
+
+It takes 6 GET variables PosX1, PosY1, PosX2, PosY2, PosX3, PosY3. All Integers. Make sure the values you supply are consolidated, they are the same on ONE of the axis and on the other axis are directly positioned next to eachother.
+eg. 1,1 | 1,2 | 1,3
+
+You'll get a status 400 if:
+Postions are not consolidated.
+You place the ship outside of bounds or if you place the ship on top of another ship.
+Look for the 'error' key in the body return for the error message.
+
+Status code of 200 if all good!
+
 # Strike a Position
 
 Can be accessed via the /Game/StrikePosition
