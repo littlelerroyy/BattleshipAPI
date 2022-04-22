@@ -168,12 +168,23 @@ namespace BattleshipAPI.Controllers
 
         [Route("/[controller]/[action]")]
         [HttpGet]
+        [ProducesResponseType(typeof(SuccessModel), 200)]
+        [ProducesResponseType(typeof(ErrorModel), 400)]
         public IActionResult StrikePosition([FromServices] GameSession GameSession, uint PosX, uint PosY)
         {
-            // Strike Out of Bounds? Return Error
+
+            //Create new Error Model & find errors
+            var ErrorModel = new ErrorModel { Errors = new List<String>() };
+
             if (!GameSession.CheckCoordinatesAreInBounds(PosX, PosY))
             {
-                return BadRequest(new { Error = "Position Out Of Bounds" });
+                ErrorModel.Errors.Add("Position Out Of Bounds");
+            }
+
+            //Return the Errors if any
+            if (ErrorModel.Errors.Count != 0)
+            {
+                return BadRequest(ErrorModel);
             }
 
             //Applying to Player 1 "CPU" only for this task
@@ -182,10 +193,10 @@ namespace BattleshipAPI.Controllers
 
             if (ShipThatGotStricken == null)
             {
-                return Ok(new { Result = "Missed" });
+                return Ok(new SuccessModel { Result = "Missed" });
             }
 
-            return Ok(new { Result = ShipThatGotStricken.AnnounceHit() });
+            return Ok(new SuccessModel { Result = ShipThatGotStricken.AnnounceHit() });
         }
     }
 }
