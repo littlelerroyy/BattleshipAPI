@@ -11,12 +11,23 @@ namespace BattleshipAPI.Controllers
     {
         [Route("/[controller]/[action]")]
         [HttpGet]
+        [ProducesResponseType(typeof(SuccessModel), 200)]
+        [ProducesResponseType(typeof(ErrorModel), 400)]
         public IActionResult SetupGame([FromServices] GameSession GameSession, uint SizeX, uint SizeY)
         {
 
+            //Create new Error Model & find errors
+            var ErrorModel = new ErrorModel { Errors = new List<String>() };
+
             if (!GameSession.ValidateAndApplyGridSize(SizeX, SizeY))
             {
-                return BadRequest(new { Error = "Please enter positive numbers only that are 3 or greater." });
+                ErrorModel.Errors.Add("Please enter positive numbers only that are 3 or greater.");
+            }
+
+            //Return the Errors if any
+            if (ErrorModel.Errors.Count != 0)
+            {
+                return BadRequest(ErrorModel);
             }
 
             //Create new Player and Ships
@@ -27,26 +38,41 @@ namespace BattleshipAPI.Controllers
                 LocationsStriked = new List<Location>()
             };
 
-            return Ok();
+            return Ok(new SuccessModel { Result = "Smiley Face" });
         }
 
         [Route("/[controller]/[action]")]
         [HttpGet]
+        [ProducesResponseType(typeof(SuccessModel), 200)]
+        [ProducesResponseType(typeof(ErrorModel), 400)]
         public IActionResult AddSmallShip([FromServices] GameSession GameSession, uint PosX, uint PosY)
         {
             //Applying to Player 1 "CPU" only for this task
             var Player = GameSession.Player1;
 
-            //If Overlapping Return Error
-            if (!Player.LocationisFree(PosX, PosY) || !GameSession.CheckCoordinatesAreInBounds(PosX, PosY))
+            //Create new Error Model & find errors
+            var ErrorModel = new ErrorModel { Errors = new List<String>() };
+
+            if (!Player.LocationisFree(PosX, PosY))
             {
-                return BadRequest(new { Error = "Position Overlapping Another Ship or you are trying to spawn them out of the grid" });
+                ErrorModel.Errors.Add("Cannot spawn a new ship over an existing ship");
+            }
+
+            if (!GameSession.CheckCoordinatesAreInBounds(PosX, PosY))
+            {
+                ErrorModel.Errors.Add("Coordinates you have selected are out of bounds");
+            }
+
+            //Return the Errors if any
+            if (ErrorModel.Errors.Count != 0)
+            {
+                return BadRequest(ErrorModel);
             }
 
             //Add new ship
             Player.Ships.Add(new SmallShip(PosX, PosY));
 
-            return Ok();
+            return Ok(new SuccessModel { Result = "Smiley Face" });
         }
 
 
@@ -71,7 +97,7 @@ namespace BattleshipAPI.Controllers
 
             if (!Player.ListofLocationsIsFree(LocationList))
             {
-                ErrorModel.Errors.Add("Cannot spawn an new ship over an existing ship");
+                ErrorModel.Errors.Add("Cannot spawn a new ship over an existing ship");
             }
             if (!GameSession.CheckCoordinateListAreInBounds(LocationList))
             {
@@ -117,7 +143,7 @@ namespace BattleshipAPI.Controllers
 
             if (!Player.ListofLocationsIsFree(LocationList))
             {
-                ErrorModel.Errors.Add("Cannot spawn an new ship over an existing ship");
+                ErrorModel.Errors.Add("Cannot spawn a new ship over an existing ship");
             }
             if (!GameSession.CheckCoordinateListAreInBounds(LocationList))
             {
