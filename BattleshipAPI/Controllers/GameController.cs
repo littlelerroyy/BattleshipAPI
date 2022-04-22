@@ -67,6 +67,12 @@ namespace BattleshipAPI.Controllers
                 return BadRequest(new { Error = "Position Overlapping Another Ship or you are trying to spawn them out of the grid" });
             }
 
+            //If the positions aren't consolidated return error
+            if (!Location.IsPositionsConsolidated(LocationList))
+            {
+                return BadRequest(new { Error = "Make sure the positions you list are at least all on the same axis for 1 side and for the other axis the positions needs to be next to eachother." });
+            }
+
             //Add new ship
             Player.Ships.Add(new MediumShip(PosX1, PosY1, PosX2, PosY2));
 
@@ -93,6 +99,12 @@ namespace BattleshipAPI.Controllers
             if (!Player.ListofLocationsIsFree(LocationList) || !GameSession.CheckCoordinateListAreInBounds(LocationList))
             {
                 return BadRequest(new { Error = "Position Overlapping Another Ship or you are trying to spawn them out of the grid" });
+            }
+
+            //If the positions aren't consolidated return error
+            if (!Location.IsPositionsConsolidated(LocationList))
+            {
+                return BadRequest(new { Error = "Make sure the positions you list are at least all on the same axis for 1 side and for the other axis the positions needs to be next to eachother." });
             }
 
             //Add new ship
