@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using BattleshipAPI.Models;
+using BattleshipAPI.ViewModels;
 
 namespace BattleshipAPI.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
     public class GameController : ControllerBase
@@ -47,8 +49,11 @@ namespace BattleshipAPI.Controllers
             return Ok();
         }
 
+
         [Route("/[controller]/[action]")]
         [HttpGet]
+        [ProducesResponseType(typeof(SuccessModel), 200)]
+        [ProducesResponseType(typeof(ErrorModel), 400)]
         public IActionResult AddMediumShip([FromServices] GameSession GameSession, uint PosX1, uint PosY1, uint PosX2, uint PosY2)
         {
             //Applying to Player 1 "CPU" only for this task
@@ -61,26 +66,38 @@ namespace BattleshipAPI.Controllers
                 new Location{xAxis =  PosX2, yAxis=PosY2},
             };
 
-            //If Overlapping Return Error
-            if (!Player.ListofLocationsIsFree(LocationList) || !GameSession.CheckCoordinateListAreInBounds(LocationList))
-            {
-                return BadRequest(new { Error = "Position Overlapping Another Ship or you are trying to spawn them out of the grid" });
-            }
+            //Create new Error Model & find errors
+            var ErrorModel = new ErrorModel { Errors = new List<String>() };
 
-            //If the positions aren't consolidated return error
+            if (!Player.ListofLocationsIsFree(LocationList))
+            {
+                ErrorModel.Errors.Add("Cannot spawn an new ship over an existing ship");
+            }
+            if (!GameSession.CheckCoordinateListAreInBounds(LocationList))
+            {
+                ErrorModel.Errors.Add("Coordinates you have selected are out of bounds");
+            }
             if (!Location.IsPositionsConsolidated(LocationList))
             {
-                return BadRequest(new { Error = "Make sure the positions you list are at least all on the same axis for 1 side and for the other axis the positions needs to be next to eachother." });
+                ErrorModel.Errors.Add("One side of the ships axis needs to be identical X or Y, while the other axis needs values to be positioned next to each other");
+            }
+
+            //Return the Errors if any
+            if (ErrorModel.Errors.Count != 0)
+            {
+                return BadRequest(ErrorModel);
             }
 
             //Add new ship
             Player.Ships.Add(new MediumShip(PosX1, PosY1, PosX2, PosY2));
 
-            return Ok();
+            return Ok(new SuccessModel { Result = "Smiley Face" });
         }
 
         [Route("/[controller]/[action]")]
         [HttpGet]
+        [ProducesResponseType(typeof(SuccessModel), 200)]
+        [ProducesResponseType(typeof(ErrorModel), 400)]
         public IActionResult AddLargeShip([FromServices] GameSession GameSession, uint PosX1, uint PosY1, uint PosX2, uint PosY2, uint PosX3, uint PosY3)
         {
 
@@ -95,22 +112,32 @@ namespace BattleshipAPI.Controllers
                 new Location{xAxis =  PosX3, yAxis=PosY3},
             };
 
-            //If Overlapping Return Error
-            if (!Player.ListofLocationsIsFree(LocationList) || !GameSession.CheckCoordinateListAreInBounds(LocationList))
-            {
-                return BadRequest(new { Error = "Position Overlapping Another Ship or you are trying to spawn them out of the grid" });
-            }
+            //Create new Error Model & find errors
+            var ErrorModel = new ErrorModel { Errors = new List<String>() };
 
-            //If the positions aren't consolidated return error
+            if (!Player.ListofLocationsIsFree(LocationList))
+            {
+                ErrorModel.Errors.Add("Cannot spawn an new ship over an existing ship");
+            }
+            if (!GameSession.CheckCoordinateListAreInBounds(LocationList))
+            {
+                ErrorModel.Errors.Add("Coordinates you have selected are out of bounds");
+            }
             if (!Location.IsPositionsConsolidated(LocationList))
             {
-                return BadRequest(new { Error = "Make sure the positions you list are at least all on the same axis for 1 side and for the other axis the positions needs to be next to eachother." });
+                ErrorModel.Errors.Add("One side of the ships axis needs to be identical X or Y, while the other axis needs values to be positioned next to each other");
+            }
+
+            //Return the Errors if any
+            if (ErrorModel.Errors.Count != 0)
+            {
+                return BadRequest(ErrorModel);
             }
 
             //Add new ship
             Player.Ships.Add(new LargeShip(PosX1, PosY1, PosX2, PosY2, PosX3, PosY3));
 
-            return Ok();
+            return Ok(new SuccessModel { Result = "Smiley Face" });
         }
 
         [Route("/[controller]/[action]")]
