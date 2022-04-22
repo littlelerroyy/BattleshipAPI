@@ -61,7 +61,11 @@ Small ships take a single unit on the board/grid.
 
 It takes 2 GET variables PosX & PosY. Both are integers.
 
-If you get a status 400 if you place the ship outside of bounds or if you place the ship on top of another ship. Look for the 'error' key in the body return for the error message.
+Status 400 if:
+
+*You place the ship outside of bounds
+
+*you place the ship on top of another ship. Look for the 'errors' key for an array of error messages.
 
 Status code of 200 if all good!
 
@@ -74,9 +78,12 @@ It takes 4 GET variables PosX1, PosY1, PosX2, PosY2. All Integers. Make sure the
 eg. 1,1 | 1,2
 
 You'll get a status 400 if:
-Postions are not consolidated.
-You place the ship outside of bounds or if you place the ship on top of another ship.
-Look for the 'error' key in the body return for the error message.
+
+*Positions are not consolidated.
+
+*You place the ship outside of bounds or if you place the ship on top of another ship.
+
+Look for the 'errors' key for an array of error messages.
 
 Status code of 200 if all good!
 
@@ -89,9 +96,12 @@ It takes 6 GET variables PosX1, PosY1, PosX2, PosY2, PosX3, PosY3. All Integers.
 eg. 1,1 | 1,2 | 1,3
 
 You'll get a status 400 if:
-Postions are not consolidated.
-You place the ship outside of bounds or if you place the ship on top of another ship.
-Look for the 'error' key in the body return for the error message.
+
+*Positions are not consolidated.
+
+*You place the ship outside of bounds or if you place the ship on top of another ship.
+
+Look for the 'errors' key for an array of error messages.
 
 Status code of 200 if all good!
 
@@ -101,20 +111,18 @@ Can be accessed via the /Game/StrikePosition
 
 It takes 2 GET variables PosX & PosY.
 
-Status 400 if you place the Coordinates out of bounds. Look for the 'error' key for the error message.
+Status 400 if you place the Coordinates out of bounds. Look for the 'errors' key for an array of error messages.
 
 Status 200 if all good and look for the 'result' key and value in the body return to see if it was a HIT, HIT and Destroy or a MISS.
 
 # Run Unit Tests
 
-These are best run from the development enviroment. However this can be accessed via /UnitTest/RunUnitTests/
+These are best run from the development environment. However this can be accessed via /UnitTest/RunUnitTests/
 
 Status code of 200 all unit tests passed
 
-Status code of 500 if there was a unit test falied the error will show in the body. However this is best reserved for running in dev enviroment of visual studio.
+Status code of 400 if there was a unit test failed the error will show in the body. However this is best reserved for running in Dev environment of visual studio.
 
 # Restart the game.
 
 Simply run /Game/SetupGame again.
-
-
