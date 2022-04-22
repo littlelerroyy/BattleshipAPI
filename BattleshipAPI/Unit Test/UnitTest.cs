@@ -151,6 +151,23 @@ namespace BattleshipAPI.Unit_Test
             Assert.AreEqual(true, GameSession.ValidateAndApplyGridSize(4, 4));
         }
 
+        [Test]
+        public static void ShipLocationsIsConsolidated() 
+        {
+            var GameSession = GameSessionMock2();
+            Assert.AreEqual(true, Location.IsPositionsConsolidated(GameSession.Player1.Ships[1].Locations));
+            Assert.AreEqual(true, Location.IsPositionsConsolidated(GameSession.Player1.Ships[4].Locations));
+        }
+
+        public static void ShipLocationsIsNotConsolidated()
+        {
+            var GameSession = GameSessionMock2();
+            
+            Assert.AreEqual(false, Location.IsPositionsConsolidated(GameSession.Player1.Ships[0].Locations));
+            Assert.AreEqual(false, Location.IsPositionsConsolidated(GameSession.Player1.Ships[2].Locations));
+            Assert.AreEqual(false, Location.IsPositionsConsolidated(GameSession.Player1.Ships[3].Locations));
+        }
+
         private static GameSession GameSessionMock1()
         {
             var GameSession = new GameSession()
@@ -166,6 +183,28 @@ namespace BattleshipAPI.Unit_Test
                         new SmallShip (2,3),
                         new MediumShip (5,5,5,4),
                         new LargeShip (3,1,3,2,3,3)
+                    }
+                }
+            };
+            return GameSession;
+        }
+
+        private static GameSession GameSessionMock2()
+        {
+            var GameSession = new GameSession()
+            {
+                GridSizeX = 5,
+                GridSizeY = 5,
+                Player1 = new Player()
+                {
+                    Name = "CPU",
+                    Ships = new List<Ship>() {
+
+                        new LargeShip (2,1,3,2,3,3),
+                        new LargeShip (3,1,3,2,3,3),
+                        new LargeShip (3,1,3,2,3,4),
+                        new LargeShip (1,2,3,2,5,2),
+                        new LargeShip (1,2,1,3,1,4),
                     }
                 }
             };

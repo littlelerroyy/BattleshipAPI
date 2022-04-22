@@ -26,6 +26,8 @@ namespace BattleshipAPI.Controllers
             UnitTest.MediumShipHasNotBeenDestroyed();
             UnitTest.LargeShipHasBeenDestroyed();
             UnitTest.LargeShipHasNotBeenDestroyed();
+            UnitTest.ShipLocationsIsConsolidated();
+            UnitTest.ShipLocationsIsNotConsolidated();
 
             return Ok();
         }
